@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  webapi:
+    build: WebApi
+    restart: always
+    depends_on:
+      - mongodb
+    environment:
+      DatabaseSettings__ConnectionString: "mongodb://gbs:geheim@mongodb:27017"
+    ports:
+      - 5001:5001
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: gbs
+      MONGO_INITDB_ROOT_PASSWORD: geheim
+    volumes:
+      - mongoData:/data/db
+volumes:
+  mongoData:
