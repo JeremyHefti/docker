@@ -128,8 +128,6 @@ ENTRYPOINT ["dotnet", "WebApi.dll"]
 **Pfad:** `min-api-with-mongo/docker-compose.yml`
 
 ```yaml
-version: '3.8'
-
 services:
   webapi:
     build:
@@ -137,6 +135,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5001:5001"
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:5001
 ```
 
 **Starten der Anwendung:**
