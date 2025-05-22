@@ -70,8 +70,6 @@ Starte die Anwendung:
 dotnet run
 ```
 
-Test im Browser: [http://localhost:5001/check](http://localhost:5001/check)
-
 ---
 
 ## ✅ Aufgabe 4: Verbindung über appsettings.json konfigurieren
@@ -134,14 +132,13 @@ services:
   mongodb:
     image: mongo
     container_name: mongodb
-    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: gbs
       MONGO_INITDB_ROOT_PASSWORD: geheim
-    volumes:
-      - mongodb-data:/data/db
     ports:
       - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
 
   webapi:
     build:
@@ -152,10 +149,13 @@ services:
     depends_on:
       - mongodb
     environment:
-      DatabaseSettings__ConnectionString: "mongodb://gbs:geheim@mongodb:27017"
-
+      ASPNETCORE_URLS: http://0.0.0.0:5001
+      environment:
+      DatabaseSettings__ConnectionString: mongodb://gbs:geheim@mongodb:27017
+ 
 volumes:
-  mongodb-data:
+  mongo-data:
+
 ```
 
 ---
